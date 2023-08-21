@@ -1,16 +1,20 @@
 const express = require("express")
 const app = express();
-const port = 4000
+const port = process.env.PORT ||  4000
 const mongoose = require("mongoose")
 const http = require('http').Server(app)
 const user = require('./models/contactUs');
+require("dotenv").config()
+
+
+mongoose.set('strictQuery',false)
 
 const cors = require("cors")
 
 app.use(cors());
 app.use(express.json());
 mongoose.connect(
-    "mongodb+srv://sufleshs:VQGMEvA94uhqPO7D@contactus.mqadz6y.mongodb.net/?retryWrites=true&w=majority"
+   process.env.MONGO_URI
 );
 
 app.post('/contactUs', async (req, res) => {
